@@ -6,12 +6,16 @@ import { RouterProvider } from 'react-router/dom'
 import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router'
 import Layout from '../Layout.jsx'
 import Home from './Components/Home/Home.jsx'
+import NotFoundPage from './Components/NotFoundPage/NotFoundPage.jsx'
+import MovieDetails from './Components/MoviesDetails/MoviesDetails.jsx'
 
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout/>}>
       <Route path='' element={<Home/>}></Route>
+      <Route path='MoviesDetails/:id/:name' element={<MovieDetails/>}></Route>
+      <Route path="*" element={<NotFoundPage/>}></Route>
     </Route>
   )
 )

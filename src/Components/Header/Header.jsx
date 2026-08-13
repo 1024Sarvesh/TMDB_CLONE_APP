@@ -19,7 +19,7 @@ function Header() {
           },
         );
         const data = await res.json();
-        console.log(data);
+        // console.log(data);
         if (!res.ok) {
           throw new Error(
             `Http request failed with status code : ${res.status}`,
