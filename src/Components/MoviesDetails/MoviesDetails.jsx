@@ -1,12 +1,110 @@
-import React from 'react'
-import { useParams } from 'react-router'
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router";
 
 function MoviesDetails() {
-    const {id,name} = useParams()
-    
+  const [detail, setDetail] = useState("");
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    const getMoviesDetail = async () => {
+      const res = await fetch(`https://api.themoviedb.org/3/movie/${id}`, {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN} `,
+        },
+      });
+      const data = await res.json();
+      console.log(data);
+      setDetail(data);
+    };
+
+    getMoviesDetail();
+  }, [id]);
+  if (!detail) {
+    return <div className="text-center mt-12 text-5xl">Loading...</div>;
+  }
   return (
-    <div>MovieDetails:{id}</div>
-  )
+    <>
+      <main className="bg-black text-white min-h-screen">
+        <section
+          className="relative min-h-screen bg-cover bg-center"
+          style={{
+            backgroundImage: `url(https://image.tmdb.org/t/p/original${detail.backdrop_path})`,
+          }}
+        >
+          <div className="relative bg-black/80">
+            <div className="relative z-10 min-h-screen flex items-end">
+              <div className="container mx-auto px-6 md:px-10 lg:px-16 pb-16 pt-32">
+                <div className="flex flex-col lg:flex-row gap-10 items-center lg:items-end">
+                  <div className="shrink-0">
+                    <img
+                      src={`https://image.tmdb.org/t/p/w500${detail.poster_path}`}
+                      alt={detail.title}
+                      className="w-64 md:w-72 lg:w-80 rounded-xl shadow-2xl"
+                    />
+                  </div>
+
+                  <div className="max-w-4xl text-center lg:text-left">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+                      {detail.title}
+                    </h1>
+
+                    <p className="text-gray-300 italic text-lg mb-5">
+                      "{detail.tagline}"
+                    </p>
+
+                    <div className="flex flex-wrap justify-center lg:justify-start items-center gap-3 text-gray-300 mb-6">
+                      <span>{detail.release_date?.slice(0, 4)}</span>
+
+                      <span>•</span>
+
+                      <span>
+                        {Math.floor(detail.runtime / 60)}h {detail.runtime % 60}
+                        m
+                      </span>
+
+                      <span>•</span>
+
+                      <span className="text-yellow-400 font-semibold">
+                        ⭐ {detail.vote_average?.toFixed(1)}
+                      </span>
+
+                      <span>•</span>
+
+                      <span>{detail.vote_count} votes</span>
+                    </div>
+
+                    <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-6">
+                      {detail.genres?.map((genre) => (
+                        <span
+                          key={genre.id}
+                          className="px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-sm border border-white/20 text-sm cursor-pointer"
+                        >
+                          {genre.name}
+                        </span>
+                      ))}
+                    </div>
+
+                    <p className="text-gray-200 text-base md:text-lg leading-8 max-w-3xl mb-8">
+                      {detail.overview}
+                    </p>
+
+                    <div className="flex flex-wrap justify-center lg:justify-start gap-4">
+                      <button className="bg-white cursor-pointer text-black px-7 py-3 rounded-lg font-semibold hover:bg-gray-200 transition">
+                        ▶ Play Trailor Now
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
+  );
 }
 
-export default MoviesDetails
+export default MoviesDetails;
