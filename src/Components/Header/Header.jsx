@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 
 function Header() {
   const [gens, setGens] = useState([]);
+  const Navigate = useNavigate()
 
   useEffect(() => {
     const getMovieGenList = async () => {
@@ -32,14 +33,24 @@ function Header() {
     };
     getMovieGenList();
   }, []);
+  const handleGenreChange = (e) => {
+    const genreId = e.target.value;
+    console.log(genreId)
+
+    if (genreId) {
+      Navigate(`/GenresMovie/${genreId}`);
+    }}
 
   return (
     <>
       <header className="flex items-center justify-between py-2 px-4 border">
         <h1 className="text-3xl">MovieVerse</h1>
-        <select name="" id="" className="p-1 border rounded">
+        <select name="" id="" className="p-1 border rounded" onChange={handleGenreChange}>
           <option value="">Choose Genres</option>
-          {gens.map((Gen) => <option value={Gen.id} key={Gen.id}>
+          {gens.map((Gen) =>
+          
+            
+             <option value={Gen.id} key={Gen.id}>
               {Gen.name}
             </option>
           )}
@@ -49,4 +60,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default Header

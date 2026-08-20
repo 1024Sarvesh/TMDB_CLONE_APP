@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 
 function MoviesDetails() {
   const [detail, setDetail] = useState("");
@@ -27,14 +27,14 @@ function MoviesDetails() {
   }
   return (
     <>
-      <main className="bg-black text-white min-h-screen">
+      <section className="bg-black text-white min-h-screen">
         <section
           className="relative min-h-screen bg-cover bg-center"
           style={{
             backgroundImage: `url(https://image.tmdb.org/t/p/original${detail.backdrop_path})`,
           }}
         >
-          <div className="relative bg-black/80">
+          <div className="relative bg-black/50">
             <div className="relative z-10 min-h-screen flex items-end">
               <div className="container mx-auto px-6 md:px-10 lg:px-16 pb-16 pt-32">
                 <div className="flex flex-col lg:flex-row gap-10 items-center lg:items-end">
@@ -78,12 +78,14 @@ function MoviesDetails() {
 
                     <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-6">
                       {detail.genres?.map((genre) => (
+                      <Link to={`/GenresMovie/${genre.id}`} key={genre.id}>
                         <span
                           key={genre.id}
                           className="px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-sm border border-white/20 text-sm cursor-pointer"
-                        >
+                          >
                           {genre.name}
                         </span>
+                          </Link>
                       ))}
                     </div>
 
@@ -93,7 +95,7 @@ function MoviesDetails() {
 
                     <div className="flex flex-wrap justify-center lg:justify-start gap-4">
                       <button className="bg-white cursor-pointer text-black px-7 py-3 rounded-lg font-semibold hover:bg-gray-200 transition">
-                        ▶ Play Trailor Now
+                       Play Trailor
                       </button>
                     </div>
                   </div>
@@ -102,7 +104,7 @@ function MoviesDetails() {
             </div>
           </div>
         </section>
-      </main>
+      </section>
     </>
   );
 }

@@ -1,18 +1,19 @@
-import React, { useParams, useState } from "react";
+import React, {useState,useEffect } from "react";
+import { useParams } from "react-router";
 
 function GenresMovie() {
-  const { id } = useParams();
+  const { id } = useParams()
 
-  const [genMov, setGenMov] = useState("");
+  const [genMov, setGenMov] = useState({});
 
   const GetGenMovie = async () => {
     const res = await fetch(
-      `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${id}'`,
+      `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${id}`,
       {
         method: "GET",
         headers: {
           accept: "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN} `,
+          Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,
         },
       },
     );
@@ -23,11 +24,14 @@ function GenresMovie() {
   useEffect(() => {
     GetGenMovie();
   }, [id]);
-  if (!genMov) {
+  if (!genMov.length) {
     return <div className="text-center mt-12 text-5xl">Loading...</div>;
   }
 
-  return <div>GenresMovie</div>;
+  return (
+  <>
+  </>
+  )
 }
 
 export default GenresMovie;
