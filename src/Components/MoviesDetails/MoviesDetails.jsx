@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router";
 
 function MoviesDetails() {
   const [detail, setDetail] = useState("");
+  const [casts, setCasts] = useState([]);
+  const [crews, setCrews] = useState([]);
 
   const { id } = useParams();
 
@@ -20,14 +22,33 @@ function MoviesDetails() {
       setDetail(data);
     };
 
+    const getCredits = async () => {
+      const res = await fetch(
+        `https://api.themoviedb.org/3/movie/${id}/credits`,
+        {
+          method: "GET",
+          headers: {
+            accept: "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN} `,
+          },
+        },
+      );
+      const data = await res.json();
+      console.log(data);
+      setCasts(data.cast);
+      setCrews(data.crew);
+    };
+
     getMoviesDetail();
+    getCredits();
   }, [id]);
-  if (!detail) {
+
+  if (!detail || !casts || !crews) {
     return <div className="text-center mt-12 text-5xl">Loading...</div>;
   }
   return (
     <>
-      <section className="bg-black text-white min-h-screen">
+      <section className="bg-black text-white min-h-screen border-white">
         <section
           className="relative min-h-screen bg-cover bg-center"
           style={{
@@ -78,14 +99,14 @@ function MoviesDetails() {
 
                     <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-6">
                       {detail.genres?.map((genre) => (
-                      <Link to={`/GenresMovie/${genre.id}`} key={genre.id}>
-                        <span
-                          key={genre.id}
-                          className="px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-sm border border-white/20 text-sm cursor-pointer"
+                        <Link to={`/GenresMovie/${genre.id}`} key={genre.id}>
+                          <span
+                            key={genre.id}
+                            className="px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-sm border border-white/20 text-sm cursor-pointer"
                           >
-                          {genre.name}
-                        </span>
-                          </Link>
+                            {genre.name}
+                          </span>
+                        </Link>
                       ))}
                     </div>
 
@@ -95,7 +116,7 @@ function MoviesDetails() {
 
                     <div className="flex flex-wrap justify-center lg:justify-start gap-4">
                       <button className="bg-white cursor-pointer text-black px-7 py-3 rounded-lg font-semibold hover:bg-gray-200 transition">
-                       Play Trailor
+                        Play Trailor
                       </button>
                     </div>
                   </div>
@@ -104,6 +125,48 @@ function MoviesDetails() {
             </div>
           </div>
         </section>
+      </section>
+
+      <h1 className="text-3xl text-white ml-3.5">Casts</h1>
+      <section className="flex gap-4 overflow-y-auto p-4 scrollbar-none text-white">
+        {casts.map((cast) => (
+          <Link
+            to={`/CreditDetails/${cast.credit_id}`}
+            className="border-white cursor-pointer min-w-50 p-2"
+          >
+            <img
+              src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`}
+              alt=""
+              key={cast.credit_id}
+              className="min-w-44 rounded hover:scale-105 hover:transition-all duration-150"
+            />
+            <h1 className="text-2xl truncate font-serif mt-2">{cast.name}</h1>
+            <h1 className="text-xl truncate font-serif">
+              {cast.known_for_department}
+            </h1>
+          </Link>
+        ))}
+      </section>
+
+      <h1 className="text-3xl text-white ml-3.5">Crews</h1>
+      <section className="flex gap-4 overflow-y-auto p-4 scrollbar-none text-white">
+        {crews.map((crew) => (
+          <Link
+            to={`/CreditDetails/${crew.credit_id}`}
+            className="border-white cursor-pointer min-w-50 p-2"
+          >
+            <img
+              src={`https://image.tmdb.org/t/p/w500${crew.profile_path}`}
+              alt=""
+              key={crew.credit_id}
+              className="min-w-44 rounded hover:scale-105 hover:transition-all duration-150"
+            />
+            <h1 className="text-2xl truncate font-serif mt-2">{crew.name}</h1>
+            <h1 className="text-xl truncate font-serif">
+              {crew.known_for_department}
+            </h1>
+          </Link>
+        ))}
       </section>
     </>
   );

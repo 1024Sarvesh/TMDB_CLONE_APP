@@ -9,6 +9,7 @@ import Home from './Components/Home/Home.jsx'
 import NotFoundPage from './Components/NotFoundPage/NotFoundPage.jsx'
 import MovieDetails from './Components/MoviesDetails/MoviesDetails.jsx'
 import GenresMovie from './Components/GenresMovie/GenresMovie.jsx'
+import CreditDetails from './Components/CreditDetails/CreditDetails.jsx'
 
 
 const router = createBrowserRouter(
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
       <Route path='' element={<Home/>}></Route>
       <Route path='/MoviesDetails/:id' element={<MovieDetails/>}></Route>
       <Route path='/GenresMovie/:id' element={<GenresMovie/>}></Route>
+      <Route path='/CreditDetails/:id' element={<CreditDetails/>}></Route>
       <Route path="*" element={<NotFoundPage/>}></Route>
     </Route>
   )

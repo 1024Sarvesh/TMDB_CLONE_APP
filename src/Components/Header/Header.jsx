@@ -43,9 +43,9 @@ function Header() {
 
   return (
     <>
-      <header className="flex items-center justify-between py-2 px-4 border">
+      <header className="flex items-center justify-between py-2 px-4 text-white">
         <h1 className="text-3xl">MovieVerse</h1>
-        <select name="" id="" className="p-1 border rounded" onChange={handleGenreChange}>
+        <select name="" id="" className="p-1 border rounded bg-black " onChange={handleGenreChange}>
           <option value="">Choose Genres</option>
           {gens.map((Gen) =>
           
