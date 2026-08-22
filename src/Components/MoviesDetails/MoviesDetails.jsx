@@ -131,13 +131,14 @@ function MoviesDetails() {
       <section className="flex gap-4 overflow-y-auto p-4 scrollbar-none text-white">
         {casts.map((cast) => (
           <Link
-            to={`/CreditDetails/${cast.credit_id}`}
+          key={cast.credit_id}
+            to={`/CreditDetails/${cast.id}`}
             className="border-white cursor-pointer min-w-50 p-2"
           >
             <img
               src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`}
               alt=""
-              key={cast.credit_id}
+              key={cast.id}
               className="min-w-44 rounded hover:scale-105 hover:transition-all duration-150"
             />
             <h1 className="text-2xl truncate font-serif mt-2">{cast.name}</h1>
@@ -152,13 +153,13 @@ function MoviesDetails() {
       <section className="flex gap-4 overflow-y-auto p-4 scrollbar-none text-white">
         {crews.map((crew) => (
           <Link
-            to={`/CreditDetails/${crew.credit_id}`}
+            to={`/CreditDetails/${crew.id}`}
             className="border-white cursor-pointer min-w-50 p-2"
           >
             <img
               src={`https://image.tmdb.org/t/p/w500${crew.profile_path}`}
               alt=""
-              key={crew.credit_id}
+              key={crew.id}
               className="min-w-44 rounded hover:scale-105 hover:transition-all duration-150"
             />
             <h1 className="text-2xl truncate font-serif mt-2">{crew.name}</h1>
