@@ -131,7 +131,6 @@ function MoviesDetails() {
       <section className="flex gap-4 overflow-y-auto p-4 scrollbar-none text-white">
         {casts.map((cast) => (
           <Link
-          key={cast.credit_id}
             to={`/CreditDetails/${cast.id}`}
             className="border-white cursor-pointer min-w-50 p-2"
           >
