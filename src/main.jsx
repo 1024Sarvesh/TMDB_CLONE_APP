@@ -10,6 +10,10 @@ import NotFoundPage from './Components/NotFoundPage/NotFoundPage.jsx'
 import MovieDetails from './Components/MoviesDetails/MoviesDetails.jsx'
 import GenresMovie from './Components/GenresMovie/GenresMovie.jsx'
 import CreditDetails from './Components/CreditDetails/CreditDetails.jsx'
+import NowPlaying from './Components/MovieList/NowPlaying.jsx'
+import TopRated from './Components/MovieList/TopRated.jsx'
+import Popular from './Components/MovieList/Popular.jsx'
+import Upcoming from './Components/MovieList/Upcoming.jsx'
 
 
 const router = createBrowserRouter(
@@ -19,6 +23,10 @@ const router = createBrowserRouter(
       <Route path='/MoviesDetails/:id' element={<MovieDetails/>}></Route>
       <Route path='/GenresMovie/:id' element={<GenresMovie/>}></Route>
       <Route path='/CreditDetails/:id' element={<CreditDetails/>}></Route>
+      <Route path='/NowPlaying' element={<NowPlaying/>}></Route>
+      <Route path='/TopRated' element={<TopRated/>}></Route>
+      <Route path='/Popular' element={<Popular/>}></Route>
+      <Route path='/Upcoming' element={<Upcoming/>}></Route>
       <Route path="*" element={<NotFoundPage/>}></Route>
     </Route>
   )

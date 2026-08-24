@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { Link, NavLink, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 function Header() {
   const [gens, setGens] = useState([]);
-  const Navigate = useNavigate()
+  const Navigate = useNavigate();
 
   useEffect(() => {
     const getMovieGenList = async () => {
@@ -35,29 +35,42 @@ function Header() {
   }, []);
   const handleGenreChange = (e) => {
     const genreId = e.target.value;
-    console.log(genreId)
+    console.log(genreId);
 
     if (genreId) {
       Navigate(`/GenresMovie/${genreId}`);
-    }}
+    }
+  };
 
   return (
     <>
       <header className="flex items-center justify-between py-2 px-4 text-white">
-        <h1 className="text-3xl">MovieVerse</h1>
-        <select name="" id="" className="p-1 border rounded bg-black " onChange={handleGenreChange}>
+        <Link to={"/"}>
+          <h1 className="text-3xl">MovieVerse</h1>
+        </Link>
+
+        <nav className="flex gap-10">
+          <Link to={"/NowPlaying"}><h1 className="text-xl" >Now Playing</h1></Link>
+          <Link to={"/Popular"}><h1 className="text-xl" >Popular</h1></Link>
+          <Link to={"/TopRated"}><h1 className="text-xl" >Top Rated</h1></Link>
+          <Link to={"/Upcoming"}><h1 className="text-xl" >Upcoming</h1></Link>
+        </nav>
+        <select
+          name=""
+          id=""
+          className="p-1 border rounded bg-black "
+          onChange={handleGenreChange}
+        >
           <option value="">Choose Genres</option>
-          {gens.map((Gen) =>
-          
-            
-             <option value={Gen.id} key={Gen.id}>
+          {gens.map((Gen) => (
+            <option value={Gen.id} key={Gen.id}>
               {Gen.name}
             </option>
-          )}
+          ))}
         </select>
       </header>
     </>
   );
 }
 
-export default Header
+export default Header;
