@@ -114,7 +114,12 @@ function MoviesDetails() {
                       {detail.overview}
                     </p>
 
-                    <Link to={`/Trailor/:${detail.id}`} className="flex flex-wrap justify-center lg:justify-start gap-4">
+                    <Link
+                      to={`/Trailor/${detail.id +"-"+ detail.title.replace(/[^a-zA-Z0-9]+/g, "-")
+                .toLowerCase()
+                .trim()}`}
+                      className="flex flex-wrap justify-center lg:justify-start gap-4"
+                    >
                       <button className="bg-white cursor-pointer text-black px-7 py-3 rounded-lg font-semibold hover:bg-gray-200 transition">
                         Play Trailor
                       </button>
@@ -131,7 +136,13 @@ function MoviesDetails() {
       <section className="flex gap-4 overflow-y-auto p-4 scrollbar-none text-white">
         {casts.map((cast) => (
           <Link
-            to={`/CreditDetails/${cast.id}`}
+            to={`/CreditDetails/${
+              cast.id + "-" +
+              cast.name
+                .replace(/[^a-zA-Z0-9]+/g, "-")
+                .toLowerCase()
+                .trim()
+            }`}
             className="border-white cursor-pointer min-w-50 p-2"
           >
             <img
@@ -152,7 +163,13 @@ function MoviesDetails() {
       <section className="flex gap-4 overflow-y-auto p-4 scrollbar-none text-white">
         {crews.map((crew) => (
           <Link
-            to={`/CreditDetails/${crew.id}`}
+            to={`/CreditDetails/${
+              crew.id + "-"+
+              crew.name
+                .replace(/[^a-zA-Z0-9]+/g, "-")
+                .toLowerCase()
+                .trim()
+            }`}
             className="border-white cursor-pointer min-w-50 p-2"
           >
             <img

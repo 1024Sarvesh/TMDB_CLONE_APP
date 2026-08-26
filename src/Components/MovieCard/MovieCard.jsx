@@ -4,7 +4,13 @@ import { Link } from "react-router";
 function MovieCard({ movie }) {
   return (
     <Link
-      to={`/MoviesDetails/${movie.id}`}
+      to={`/MoviesDetails/${
+        movie.id + "-"+
+        movie.title
+          .replace(/[^a-zA-Z0-9]+/g, "-")
+          .toLowerCase()
+          .trim()
+      }`}
       key={movie.id}
       className="relative w-full aspect-[2/3] overflow-hidden rounded-xl shadow-lg group cursor-pointer"
     >
