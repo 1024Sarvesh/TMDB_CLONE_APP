@@ -14,6 +14,7 @@ import NowPlaying from './Components/MovieList/NowPlaying.jsx'
 import TopRated from './Components/MovieList/TopRated.jsx'
 import Popular from './Components/MovieList/Popular.jsx'
 import Upcoming from './Components/MovieList/Upcoming.jsx'
+import Trailor from './Components/Trailor/Trailor.jsx'
 
 
 const router = createBrowserRouter(
@@ -27,6 +28,7 @@ const router = createBrowserRouter(
       <Route path='/TopRated' element={<TopRated/>}></Route>
       <Route path='/Popular' element={<Popular/>}></Route>
       <Route path='/Upcoming' element={<Upcoming/>}></Route>
+      <Route path='/Trailor/:id' element={<Trailor/>}></Route>
       <Route path="*" element={<NotFoundPage/>}></Route>
     </Route>
   )

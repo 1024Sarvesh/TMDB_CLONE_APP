@@ -114,11 +114,11 @@ function MoviesDetails() {
                       {detail.overview}
                     </p>
 
-                    <div className="flex flex-wrap justify-center lg:justify-start gap-4">
+                    <Link to={`/Trailor/:${detail.id}`} className="flex flex-wrap justify-center lg:justify-start gap-4">
                       <button className="bg-white cursor-pointer text-black px-7 py-3 rounded-lg font-semibold hover:bg-gray-200 transition">
                         Play Trailor
                       </button>
-                    </div>
+                    </Link>
                   </div>
                 </div>
               </div>
